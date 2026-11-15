@@ -173,6 +173,27 @@
 				</dependency>
 			</dependencies>
 		</profile>
+		<!--
+			Selenium 테스트(*Selenium.java)는 ChromeDriver와 http://localhost:8080/egovframe-web 서버가 필요해서
+			기본 테스트(<include>**/*Test.java</include>)에서 제외된다. 서버를 띄운 뒤 직접 실행하려면:
+				mvn test -Ptest,selenium
+		-->
+		<profile>
+			<id>selenium</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-surefire-plugin</artifactId>
+						<configuration>
+							<includes combine.self="override">
+								<include>**/*Selenium.java</include>
+							</includes>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
 	</profiles>
 
 	<build>
